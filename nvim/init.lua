@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.softtabstop = 2
     end
 })
-        
+
 -- 行番号を表示"
 vim.opt.number = true
 -- タブ文字と行末のスペースを表示
@@ -66,20 +66,21 @@ require("lazy").setup({
     "yamatsum/nvim-cursorline",
     -- Git 管理ファイルの変更点を表示
     "lewis6991/gitsigns.nvim",
-    --Completion
+    -- lsp サーバーの管理
     "neovim/nvim-lspconfig",
+    -- Completion
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/nvim-cmp",
     "saadparwaiz1/cmp_luasnip",
+    -- Snip
     {
         "L3MON4D3/LuaSnip",
         dependencies = { "rafamadriz/friendly-snippets" },
     },
     "rafamadriz/friendly-snippets",
-    -- snip
     "hrsh7th/cmp-vsnip",
     "hrsh7th/vim-vsnip",
 })
