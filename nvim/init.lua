@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.softtabstop = 2
     end
 })
-        
+
 -- 行番号を表示"
 vim.opt.number = true
 -- タブ文字と行末のスペースを表示
@@ -66,6 +66,8 @@ require("lazy").setup({
     "yamatsum/nvim-cursorline",
     -- Git 管理ファイルの変更点を表示
     "lewis6991/gitsigns.nvim",
+    -- status_line の色を変更
+    "itchyny/lightline.vim",
     --Completion
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
@@ -144,6 +146,12 @@ require('gitsigns').setup {
   yadm = {
     enable = false
   },
+}
+
+-- lightline.vim のセットアップ
+vim.g['lightline'] = {
+    colorscheme = 'ayu_dark',
+    background  = 'dark'
 }
 
 -- Set up nvim-cmp.
