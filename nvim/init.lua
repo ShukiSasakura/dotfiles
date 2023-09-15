@@ -33,7 +33,8 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.softtabstop = 2
     end
 })
-
+-- ターミナル内で true color を表示
+vim.opt.termguicolors = true
 -- 行番号を表示"
 vim.opt.number = true
 -- タブ文字と行末のスペースを表示
