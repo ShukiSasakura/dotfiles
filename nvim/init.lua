@@ -33,7 +33,8 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.softtabstop = 2
     end
 })
-
+-- ターミナル内で true color を表示
+vim.opt.termguicolors = true
 -- 行番号を表示"
 vim.opt.number = true
 -- タブ文字と行末のスペースを表示
@@ -69,19 +70,21 @@ require("lazy").setup({
     -- status_line の色を変更
     "itchyny/lightline.vim",
     --Completion
+    -- lsp サーバーの管理
     "neovim/nvim-lspconfig",
+    -- Completion
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/nvim-cmp",
     "saadparwaiz1/cmp_luasnip",
+    -- Snip
     {
         "L3MON4D3/LuaSnip",
         dependencies = { "rafamadriz/friendly-snippets" },
     },
     "rafamadriz/friendly-snippets",
-    -- snip
     "hrsh7th/cmp-vsnip",
     "hrsh7th/vim-vsnip",
 })
