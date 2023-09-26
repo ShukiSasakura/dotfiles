@@ -46,6 +46,8 @@ vim.opt.clipboard:append{'unnamed'}
 local map = vim.api.nvim_set_keymap
 map('n', 'j', 'gj', {noremap = true})
 map('n', 'k', 'gk', {noremap = true})
+-- jk で ESC
+map('i', 'jk', '<ESC>', {noremap = true})
 
 -- lazy.nvim のインストール
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -69,6 +71,8 @@ require("lazy").setup({
     "lewis6991/gitsigns.nvim",
     -- status_line の色を変更
     "itchyny/lightline.vim",
+    -- indent_line の追加
+    "lukas-reineke/indent-blankline.nvim",
     --Completion
     -- lsp サーバーの管理
     "neovim/nvim-lspconfig",
