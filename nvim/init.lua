@@ -73,9 +73,14 @@ require("lazy").setup({
     "itchyny/lightline.vim",
     -- indent_line の追加
     "lukas-reineke/indent-blankline.nvim",
-    --Completion
+    --LSP 関連
     -- lsp サーバーの管理
     "neovim/nvim-lspconfig",
+    -- nvim-lspconfig を自動的に設定
+    "simrat39/rust-tools.nvim",
+    -- lsp をインストール，セットアップ
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
     -- Completion
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
@@ -161,7 +166,10 @@ vim.g['lightline'] = {
     background  = 'dark'
 }
 
--- Set up nvim-cmp.
+---------------------
+--LSP のセットアップ
+---------------------
+-- nvim-cmp のセットアップ
 local cmp = require'cmp'
 
 cmp.setup({
@@ -175,43 +183,43 @@ cmp.setup({
     end,
   },
   window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      local col = vim.fn.col('.') - 1
-    
-      if cmp.visible() then
-        cmp.select_next_item(select_opts)
-      elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        fallback()
-      else
-        cmp.complete()
-      end
-    end, {'i', 's'}),
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<Tab>'] = cmp.mapping(function(fallback)
+          local col = vim.fn.col('.') - 1
 
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(select_opts)
-      else
-        fallback()
-      end
-    end, {'i', 's'}),
+          if cmp.visible() then
+              cmp.select_next_item(select_opts)
+          elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+              fallback()
+          else
+              cmp.complete()
+          end
+      end, {'i', 's'}),
+
+      ['<S-Tab>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+              cmp.select_prev_item(select_opts)
+          else
+              fallback()
+          end
+      end, {'i', 's'}),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-     { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
   }, {
-    { name = 'buffer' },
+      { name = 'buffer' },
   })
 })
 
@@ -242,9 +250,36 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Set up lspconfig.
+-- keybindings
+local on_attach = function(client, bufnr)
+end
+
+-- lspconfig のセットアップ
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require'lspconfig'.rust_analyzer.setup {
-  capabilities = capabilities
-}
+-- none, single, double, rounded, solid, shadow
+require("mason").setup({ui = {border = "single"}})
+
+require('mason-lspconfig').setup_handlers({
+    function(server)
+        if server == 'rust_analyzer' then
+            require('rust-tools').setup({
+                server = {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = {
+                                command = "clippy"
+                            },
+                        }
+                    },
+                },
+            })
+        else
+            require('lspconfig')[server].setup {
+                on_attach = on_attach,
+                capabilities = capabilities,
+            }
+        end
+    end
+})
