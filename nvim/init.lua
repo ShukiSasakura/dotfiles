@@ -42,13 +42,37 @@ vim.opt.list = true
 vim.opt.listchars = {tab='>-',trail='*'}
 -- ヤンクでクリップボードにコピー
 vim.opt.clipboard:append{'unnamed'}
+
+---------------------
+--mapping
+---------------------
 -- 画面上で複数行になっている1行についてj/kで見た目通りに移動できるようにする
 local map = vim.api.nvim_set_keymap
 map('n', 'j', 'gj', {noremap = true})
 map('n', 'k', 'gk', {noremap = true})
 -- jk で ESC
 map('i', 'jk', '<ESC>', {noremap = true})
+-- 検索結果を画面中央に表示するようにする
+map('n', 'n', 'nzz', {})
+map('n', 'N', 'Nzz', {})
 
+-- カーソルが常に画面中央に来るようにする
+vim.api.nvim_create_user_command(
+    'CenteringCursorToggle',
+    function()
+        if vim.opt.scrolloff == 999 then
+            vim.opt.scrolloff = 0
+        else
+            vim.opt.scrolloff = 999
+        end
+    end,
+    {}
+)
+map('n', 'zx', ':CenteringCursorToggle', {noremap = true})
+
+---------------------
+--Plugin
+---------------------
 -- lazy.nvim のインストール
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
