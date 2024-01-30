@@ -45,6 +45,11 @@ alias vim="nvim"
 
 
 ############
+# env
+############
+export EDITOR=nvim
+
+############
 # sheldon
 ############
 eval "$(sheldon source)"
