@@ -47,7 +47,11 @@ alias vim="nvim"
 ############
 # env
 ############
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
+
+# cargo
+. "$HOME/.cargo/env"
 
 ############
 # sheldon
