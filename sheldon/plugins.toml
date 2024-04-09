@@ -17,9 +17,8 @@ shell = "zsh"
 [plugins.base16]
 github = "chriskempson/base16-shell"
 
-[plugins.moonline]
-github = "kagamilove0707/moonline.zsh"
-use = ["{{name}}.zsh"]
+[plugins.spaceship]
+github = "spaceship-prompt/spaceship-prompt"
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"

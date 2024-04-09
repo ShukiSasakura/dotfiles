@@ -57,8 +57,6 @@ export EDITOR=nvim
 # sheldon
 ############
 eval "$(sheldon source)"
-# Initialize moonline theme
-moonline initialize
 
 ############
 # Install
