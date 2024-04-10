@@ -57,6 +57,11 @@ export EDITOR=nvim
 # sheldon
 ############
 eval "$(sheldon source)"
+########
+# Change one of colors in zsh-syntax-highlighting default colors
+########
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=white
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white
 
 ############
 # Install
