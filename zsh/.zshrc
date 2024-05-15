@@ -41,7 +41,7 @@ alias gs="git status"
 
 alias v="nvim"
 alias vi="nvim"
-alias vim="nvim"
+#alias vim="nvim"
 
 
 ############
@@ -62,20 +62,3 @@ eval "$(sheldon source)"
 ########
 ZSH_HIGHLIGHT_STYLES[globbing]=fg=white
 ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white
-
-############
-# Install
-############
-export WASMTIME_HOME="$HOME/.wasmtime"
-
-export PATH="$WASMTIME_HOME/bin:$PATH"
-
-. "/home/sasakura/.wasmedge/env"
-
-# Wasmer
-export WASMER_DIR="/home/sasakura/.wasmer"
-[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
