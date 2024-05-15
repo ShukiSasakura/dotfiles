@@ -41,7 +41,7 @@ vim.opt.number = true
 vim.opt.list = true
 vim.opt.listchars = {tab='>-',trail='*'}
 -- ヤンクでクリップボードにコピー
-vim.opt.clipboard:append{'unnamed'}
+vim.opt.clipboard:append{'unnamedplus'}
 
 ---------------------
 --mapping
