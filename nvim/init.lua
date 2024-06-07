@@ -106,11 +106,11 @@ require("lazy").setup({
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     -- Completion
+    "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    "hrsh7th/nvim-cmp",
     "saadparwaiz1/cmp_luasnip",
     -- Snip
     {
@@ -118,14 +118,7 @@ require("lazy").setup({
         dependencies = { "rafamadriz/friendly-snippets" },
     },
     "rafamadriz/friendly-snippets",
-    "hrsh7th/cmp-vsnip",
-    "hrsh7th/vim-vsnip",
 })
-
---call plug#begin()
----- Rust フォーマッタ
---Plug 'rust-lang/rust.vim'
---call plug#end()
 
 -- nvim-cursorline のセットアップ
 require('nvim-cursorline').setup {
@@ -193,6 +186,9 @@ vim.g['lightline'] = {
 ---------------------
 --LSP のセットアップ
 ---------------------
+-- lspconfig のセットアップ
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 -- nvim-cmp のセットアップ
 local cmp = require'cmp'
 
@@ -200,7 +196,7 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -238,12 +234,13 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
   }, {
       { name = 'buffer' },
+      { name = 'path' },
   })
 })
 
@@ -278,11 +275,10 @@ cmp.setup.cmdline(':', {
 local on_attach = function(client, bufnr)
 end
 
--- lspconfig のセットアップ
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- none, single, double, rounded, solid, shadow
 require("mason").setup({ui = {border = "single"}})
 
+require('mason-lspconfig').setup()
 require('mason-lspconfig').setup_handlers({
     function(server)
         if server == 'rust_analyzer' then
