@@ -91,6 +91,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- カーソル上の単語と行を強調表示
     "yamatsum/nvim-cursorline",
+    -- Neovim上でGit操作を可能にする
+    "dinhhuy258/git.nvim",
     -- Git 管理ファイルの変更点を表示
     "lewis6991/gitsigns.nvim",
     -- status_line の色を変更
@@ -133,6 +135,9 @@ require('nvim-cursorline').setup {
     hl = { underline = true },
   }
 }
+
+-- git.nvim のセットアップ
+require('git').setup {}
 
 -- gitsigns.nvim のセットアップ
 require('gitsigns').setup {
