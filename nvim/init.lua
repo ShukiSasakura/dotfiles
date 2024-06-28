@@ -56,6 +56,20 @@ map('i', 'jk', '<ESC>', {noremap = true})
 map('n', 'n', 'nzz', {})
 map('n', 'N', 'Nzz', {})
 
+-- ダークテーマとライトテーマを簡単に切り替える
+vim.api.nvim_create_user_command(
+    'SwitchBackgroundColor',
+    function()
+        if vim.o.background == 'dark' then
+            vim.opt.background = 'light'
+        else
+            vim.opt.background = 'dark'
+        end
+    end,
+    {}
+)
+map('n', 'zbc', ':SwitchBackgroundColor', {noremap = true})
+
 -- カーソルが常に画面中央に来るようにする
 vim.api.nvim_create_user_command(
     'CenteringCursorToggle',
@@ -101,6 +115,8 @@ require("lazy").setup({
     "itchyny/lightline.vim",
     -- indent_line の追加
     "lukas-reineke/indent-blankline.nvim",
+    -- colorscheme
+    { "catppuccin/nvim",lazy = false, name = "catppuccin", priority = 1000 },
     --LSP 関連
     -- lsp サーバーの管理
     "neovim/nvim-lspconfig",
@@ -186,9 +202,29 @@ require('gitsigns').setup {
 
 -- lightline.vim のセットアップ
 vim.g['lightline'] = {
-    colorscheme = 'ayu_dark',
+    colorscheme = 'catppuccin',
     background  = 'dark'
 }
+
+--catppuccin(colorscheme) のセットアップ
+require("catppuccin").setup({
+    flavor = "auto",
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        indent_blankline = { enabled = true },
+        mason = true,
+        -- nvimtree = true,
+        -- treesitter = true,
+        -- notify = false,
+    }
+})
+-- setup must be called before loading
+vim.cmd.colorscheme "catppuccin-mocha"
 
 ---------------------
 --LSP のセットアップ
