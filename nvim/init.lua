@@ -91,6 +91,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- カーソル上の単語と行を強調表示
     "yamatsum/nvim-cursorline",
+    -- gccでコメントアウト・イン
+    "tpope/vim-commentary",
     -- Neovim上でGit操作を可能にする
     "dinhhuy258/git.nvim",
     -- Git 管理ファイルの変更点を表示
