@@ -5,7 +5,7 @@ vim.opt.autoindent = true
 -- 改行時に前の行の構文をチェックし次の行のインデントを増減する
 vim.opt.smartindent = true
 -- マウスでカーソル移動とスクロール
-vim.opt.mouse = a
+vim.opt.mouse = 'a'
 -- タブ入力を複数の空白入力に置き換える
 vim.opt.expandtab = true
 -- 画面上でタブ文字が占める幅
@@ -259,7 +259,7 @@ cmp.setup({
           local col = vim.fn.col('.') - 1
 
           if cmp.visible() then
-              cmp.select_next_item(select_opts)
+              cmp.select_next_item()
           elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
               fallback()
           else
@@ -269,7 +269,7 @@ cmp.setup({
 
       ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
-              cmp.select_prev_item(select_opts)
+              cmp.select_prev_item()
           else
               fallback()
           end
@@ -319,30 +319,61 @@ local on_attach = function(client, bufnr)
 end
 
 -- none, single, double, rounded, solid, shadow
-require("mason").setup({ui = {border = "single"}})
+require("mason").setup({ ui = { border = "single"} })
 
-require('mason-lspconfig').setup()
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        "lua_ls",
+        "marksman",
+        "rust_analyzer",
+        "texlab",
+    },
+    automatic_installation = true,
+})
+
 require('mason-lspconfig').setup_handlers({
-    function(server)
-        if server == 'rust_analyzer' then
-            require('rust-tools').setup({
-                server = {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = {
-                        ["rust-analyzer"] = {
-                            checkOnSave = {
-                                command = "clippy"
-                            },
-                        }
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {}
+    end,
+    ["lua_ls"] = function()
+        require("lspconfig")["lua_ls"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        -- `vim`グローバル変数を認識させる
+                        globals = {'vim'},
                     },
-                },
-            })
-        else
-            require('lspconfig')[server].setup {
+                }
+            },
+        })
+    end,
+    ["marksman"] = function()
+        require("lspconfig")["marksman"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
+    end,
+    ["rust_analyzer"] = function()
+        require("rust-tools").setup({
+            server = {
                 on_attach = on_attach,
                 capabilities = capabilities,
+                settings = {
+                    ["rust-analyzer"] = {
+                        checkOnSave = {
+                            command = "clippy"
+                        },
+                    }
+                },
             }
-        end
-    end
+        })
+    end,
+    ["texlab"] = function()
+        require("lspconfig")["texlab"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
+    end,
 })
