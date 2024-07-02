@@ -326,6 +326,7 @@ require('mason-lspconfig').setup({
         "lua_ls",
         "marksman",
         "rust_analyzer",
+        "solargraph",
         "texlab",
     },
     automatic_installation = true,
@@ -351,6 +352,12 @@ require('mason-lspconfig').setup_handlers({
     end,
     ["marksman"] = function()
         require("lspconfig")["marksman"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
+    end,
+    ["solargraph"] = function()
+        require("lspconfig")["solargraph"].setup({
             on_attach = on_attach,
             capabilities = capabilities,
         })
