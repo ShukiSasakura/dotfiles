@@ -46,15 +46,23 @@ vim.opt.clipboard:append{'unnamedplus'}
 ---------------------
 --mapping
 ---------------------
--- 画面上で複数行になっている1行についてj/kで見た目通りに移動できるようにする
 local map = vim.api.nvim_set_keymap
+
+-- 画面上で複数行になっている1行についてj/kで見た目通りに移動できるようにする
 map('n', 'j', 'gj', {noremap = true})
 map('n', 'k', 'gk', {noremap = true})
+
 -- jk で ESC
 map('i', 'jk', '<ESC>', {noremap = true})
+
 -- 検索結果を画面中央に表示するようにする
 map('n', 'n', 'nzz', {})
 map('n', 'N', 'Nzz', {})
+
+-- 警告・エラーメッセージの表示
+map('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>', {})
+map('n', '[n', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
+map('n', ']n', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
 
 -- ダークテーマとライトテーマを簡単に切り替える
 vim.api.nvim_create_user_command(
