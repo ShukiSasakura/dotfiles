@@ -123,6 +123,15 @@ require("lazy").setup({
     "itchyny/lightline.vim",
     -- indent_line の追加
     "lukas-reineke/indent-blankline.nvim",
+    -- keybindings をポップアップ表示
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+    },
     -- colorscheme
     { "catppuccin/nvim",lazy = false, name = "catppuccin", priority = 1000 },
     --LSP 関連
