@@ -232,6 +232,9 @@ vim.g['lightline'] = {
     background  = 'dark'
 }
 
+-- indent_blankline.nvim のセットアップ
+require("ibl").setup()
+
 -- triptych.nvim のセットアップ
 require 'triptych'.setup()
 
