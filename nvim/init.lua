@@ -132,6 +132,15 @@ require("lazy").setup({
             vim.o.timeoutlen = 300
         end,
     },
+    -- Directory browser
+    {
+        'simonmclean/triptych.nvim',
+        event = 'VeryLazy',
+        dependencies = {
+            'nvim-lua/plenary.nvim', -- required
+            'nvim-tree/nvim-web-devicons', -- optional
+        }
+    },
     -- colorscheme
     { "catppuccin/nvim",lazy = false, name = "catppuccin", priority = 1000 },
     --LSP 関連
@@ -222,6 +231,9 @@ vim.g['lightline'] = {
     colorscheme = 'catppuccin',
     background  = 'dark'
 }
+
+-- triptych.nvim のセットアップ
+require 'triptych'.setup()
 
 --catppuccin(colorscheme) のセットアップ
 require("catppuccin").setup({
