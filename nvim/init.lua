@@ -182,6 +182,17 @@ require("lazy").setup({
         dependencies = { "rafamadriz/friendly-snippets" },
     },
     "rafamadriz/friendly-snippets",
+    -- flutter アプリケーションを nvim で構築
+    -- LSP も設定してくれる
+    {
+        'akinsho/flutter-tools.nvim',
+        lazy = false,
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
+        },
+        config = true,
+    },
 })
 
 -- nvim-cursorline のセットアップ
@@ -434,3 +445,6 @@ require('mason-lspconfig').setup_handlers({
         })
     end,
 })
+
+-- flutter-tools のセットアップ
+require("flutter-tools").setup {} -- use defaults
