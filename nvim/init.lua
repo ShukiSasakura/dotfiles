@@ -121,8 +121,25 @@ require("lazy").setup({
     "lewis6991/gitsigns.nvim",
     -- status_line の色を変更
     "itchyny/lightline.vim",
-    -- indent_line の追加
-    "lukas-reineke/indent-blankline.nvim",
+    -- indent chunk の可視化
+    {
+        "shellRaining/hlchunk.nvim",
+        config = function()
+            require("hlchunk").setup({
+                chunk = {
+                    enable = true,
+                    chars = {
+                        horizontal_line = "─",
+                        vertical_line = "│",
+                        left_top = "┌",
+                        left_bottom = "└",
+                        right_arrow = "─",
+                    },
+                    style = "#00ffff",
+                }
+            })
+        end
+    },
     -- keybindings をポップアップ表示
     {
         "folke/which-key.nvim",
@@ -276,9 +293,6 @@ vim.g['lightline'] = {
     colorscheme = 'catppuccin',
     background  = 'dark'
 }
-
--- indent-blankline.nvim のセットアップ
-require("ibl").setup()
 
 -- triptych.nvim のセットアップ
 require 'triptych'.setup()
