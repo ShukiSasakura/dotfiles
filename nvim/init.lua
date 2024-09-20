@@ -136,7 +136,19 @@ require("lazy").setup({
                         right_arrow = "─",
                     },
                     style = "#00ffff",
-                }
+                    use_treesitter = false,
+                },
+                indent = {
+                    enable = true,
+                    style = {
+                        "#504945",
+                    },
+                },
+                line_num = {
+                    enable = true,
+                    style = "#00ffff",
+                    use_treesitter = false,
+                },
             })
         end
     },
@@ -219,6 +231,7 @@ require("lazy").setup({
     -- LSP も設定してくれる
     {
         'akinsho/flutter-tools.nvim',
+        event = "VeryLazy",
         lazy = false,
         dependencies = {
             'nvim-lua/plenary.nvim',
@@ -327,7 +340,7 @@ require("catppuccin").setup({
     integrations = {
         cmp = true,
         gitsigns = true,
-        indent_blankline = { enabled = true },
+        -- indent_blankline = { enabled = true },
         mason = true,
         -- nvimtree = true,
         -- treesitter = true,
