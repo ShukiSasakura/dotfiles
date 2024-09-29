@@ -115,6 +115,27 @@ require("lazy").setup({
     "yamatsum/nvim-cursorline",
     -- gccでコメントアウト・イン
     "tpope/vim-commentary",
+    -- w, e, b での移動を効率化
+    {
+        "chrisgrieser/nvim-spider",
+        keys = {
+            {
+                "w",
+                "<cmd>lua require('spider').motion('w')<CR>",
+                mode = { "n", "o", "x" },
+            },
+            {
+                "e",
+                "<cmd>lua require('spider').motion('e')<CR>",
+                mode = { "n", "o", "x" },
+            },
+            {
+                "b",
+                "<cmd>lua require('spider').motion('b')<CR>",
+                mode = { "n", "o", "x" },
+            },
+        },
+    },
     -- Neovim上でGit操作を可能にする
     "dinhhuy258/git.nvim",
     -- Git 管理ファイルの変更点を表示
