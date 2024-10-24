@@ -64,6 +64,9 @@ map('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>', {})
 map('n', '[n', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
 map('n', ']n', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
 
+-- triptych のキーマップ
+map('n', 'tp', ':Triptych<CR>', { silent = true })
+
 -- ダークテーマとライトテーマを簡単に切り替える
 vim.api.nvim_create_user_command(
     'SwitchBackgroundColor',
@@ -158,6 +161,7 @@ require("lazy").setup({
                     },
                     style = "#00ffff",
                     use_treesitter = false,
+                    delay = 0,
                 },
                 indent = {
                     enable = true,
