@@ -79,7 +79,7 @@ vim.api.nvim_create_user_command(
     end,
     {}
 )
-map('n', 'zbc', ':SwitchBackgroundColor', {noremap = true})
+map('n', 'zbc', ':SwitchBackgroundColor<CR>', {noremap = true})
 
 -- カーソルが常に画面中央に来るようにする
 vim.api.nvim_create_user_command(
@@ -93,7 +93,7 @@ vim.api.nvim_create_user_command(
     end,
     {}
 )
-map('n', 'zx', ':CenteringCursorToggle', {noremap = true})
+map('n', 'zx', ':CenteringCursorToggle<CR>', {noremap = true})
 
 ---------------------
 --Plugin
