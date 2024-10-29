@@ -118,6 +118,8 @@ require("lazy").setup({
     "yamatsum/nvim-cursorline",
     -- gccでコメントアウト・イン
     "tpope/vim-commentary",
+    -- 日付と時刻を挿入
+    "AntonVanAssche/date-time-inserter.nvim",
     -- w, e, b での移動を効率化
     {
         "chrisgrieser/nvim-spider",
@@ -278,6 +280,15 @@ require('nvim-cursorline').setup {
     min_length = 3,
     hl = { underline = true },
   }
+}
+
+-- date-time-inserter のセットアップ
+require('date-time-inserter').setup {
+    date_format = 'YYYYMMDD',
+    time_format = 24,
+    insert_date_map = '<leader>dt',
+    insert_time_map = '<leader>tt',
+    insert_date_time_map = '<leader>dtt',
 }
 
 -- git.nvim のセットアップ
