@@ -28,6 +28,7 @@ zstyle ':vcs_info:git:*' formats '%b'
 export LS_COLORS="di=32:ex=33"
 alias ls="ls -F --color=auto"
 alias la="ls -aF --color=auto"
+alias ll="ls -lF --color=auto"
 alias rm="rm -i"
 function mkcd() {
     mkdir $1 && cd $1
