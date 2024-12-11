@@ -114,6 +114,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugin の管理
 require("lazy").setup({
+    -- フローティングウインドウにテキストバッファを作成
+    "ShukiSasakura/floating_scratch.nvim",
     -- カーソル上の単語と行を強調表示
     "yamatsum/nvim-cursorline",
     -- gccでコメントアウト・イン
