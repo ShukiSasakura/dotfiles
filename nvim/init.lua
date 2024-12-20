@@ -43,6 +43,23 @@ vim.opt.listchars = {tab='>-',trail='*'}
 -- ヤンクでクリップボードにコピー
 vim.opt.clipboard:append{'unnamedplus'}
 
+-- インサートモード入出の際に IME のオンオフ
+if vim.fn.has("unix") == 1 then
+    vim.api.nvim_create_autocmd({"InsertEnter"}, {
+        pattern = "*",
+        callback = function()
+            os.execute("fcitx5-remote -c")
+        end
+    })
+
+    vim.api.nvim_create_autocmd({"InsertLeave"}, {
+        pattern = "*",
+        callback = function()
+            os.execute("fcitx5-remote -o")
+        end
+    })
+end
+
 ---------------------
 --mapping
 ---------------------
