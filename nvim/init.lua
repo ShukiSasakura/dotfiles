@@ -84,6 +84,9 @@ map('n', ']n', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
 -- triptych のキーマップ
 map('n', 'tp', ':Triptych<CR>', { silent = true })
 
+-- lsp 定義ジャンプ
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
+
 -- ダークテーマとライトテーマを簡単に切り替える
 vim.api.nvim_create_user_command(
     'SwitchBackgroundColor',
