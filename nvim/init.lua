@@ -142,6 +142,8 @@ require("lazy").setup({
     "tpope/vim-commentary",
     -- 日付と時刻を挿入
     "AntonVanAssche/date-time-inserter.nvim",
+    -- f, F, t, T での移動先候補をハイライト
+    -- "unblevable/quick-scope",
     -- w, e, b での移動を効率化
     {
         "chrisgrieser/nvim-spider",
@@ -312,6 +314,10 @@ require('date-time-inserter').setup {
     insert_time_map = '<leader>tt',
     insert_date_time_map = '<leader>dtt',
 }
+
+-- quick-scope のセットアップ
+-- quick-scope のハイライト起動キー
+-- vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
 
 -- git.nvim のセットアップ
 require('git').setup {}
