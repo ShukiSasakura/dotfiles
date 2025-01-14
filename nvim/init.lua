@@ -143,7 +143,7 @@ require("lazy").setup({
     -- 日付と時刻を挿入
     "AntonVanAssche/date-time-inserter.nvim",
     -- f, F, t, T での移動先候補をハイライト
-    -- "unblevable/quick-scope",
+    "unblevable/quick-scope",
     -- w, e, b での移動を効率化
     {
         "chrisgrieser/nvim-spider",
@@ -317,7 +317,16 @@ require('date-time-inserter').setup {
 
 -- quick-scope のセットアップ
 -- quick-scope のハイライト起動キー
--- vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
+vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
+-- quick-scope のハイライトカラー設定
+local qs_colors_group = vim.api.nvim_create_augroup("qs_colors", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = qs_colors_group,
+    callback = function()
+        vim.cmd("highlight QuickScopePrimary guifg=#ff5151 gui=underline ctermfg=155 cterm=underline")
+        vim.cmd("highlight QuickScopeSecondary guifg=#5fffff gui=underline ctermfg=81 cterm=underline")
+    end,
+})
 
 -- git.nvim のセットアップ
 require('git').setup {}
