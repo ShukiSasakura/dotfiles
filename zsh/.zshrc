@@ -36,9 +36,12 @@ function mkcd() {
 
 alias ga="git add"
 alias gd="git diff"
-alias gg="git log --graph --all --oneline"
+alias gg="git log --all --graph --oneline --date=format:'%Y/%m/%d %H:%M:%S' --format='%C(auto)%h [%ad] %d %s%C(reset)'"
+
 alias gl="git log"
 alias gs="git status"
+alias gb="git branch"
+alias gch="git checkout"
 
 alias v="nvim"
 #alias vi="nvim"
