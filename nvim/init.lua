@@ -84,6 +84,9 @@ map('n', ']n', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
 -- triptych のキーマップ
 map('n', 'tp', ':Triptych<CR>', { silent = true })
 
+-- Toggleterm のキーマップ
+map('n', 'tt', ':ToggleTerm<CR>', { silent = true })
+
 -- lsp 定義ジャンプ
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
 
@@ -228,6 +231,8 @@ require("lazy").setup({
             'nvim-tree/nvim-web-devicons', -- optional
         }
     },
+    -- session 中に複数のターミナルを切り替え，使用する
+    {'akinsho/toggleterm.nvim', version = "*", config = true},
     -- filesystem をツリー表示
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -382,6 +387,11 @@ vim.g['lightline'] = {
 
 -- triptych.nvim のセットアップ
 require 'triptych'.setup()
+
+-- toggleterm.nvim のセットアップ
+require("toggleterm").setup{
+    direction = 'float',
+}
 
 -- noice.nvim のセットアップ
 require("noice").setup({
