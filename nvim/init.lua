@@ -497,7 +497,7 @@ vim.cmd.colorscheme "catppuccin-mocha"
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- nvim-cmp のセットアップ
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 cmp.setup({
   snippet = {
