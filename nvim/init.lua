@@ -503,12 +503,6 @@ require("catppuccin").setup({
 -- setup must be called before loading
 vim.cmd.colorscheme "catppuccin-mocha"
 
----------------------
---LSP のセットアップ
----------------------
--- lspconfig のセットアップ
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 -- nvim-cmp のセットアップ
 local cmp = require 'cmp'
 
@@ -591,75 +585,41 @@ cmp.setup.cmdline(':', {
   })
 })
 
+---------------------
+--LSP のセットアップ
+---------------------
 -- keybindings
 local on_attach = function(client, bufnr)
 end
 
+-- lsp 全体で使用する設定
+vim.lsp.config('*', {
+    on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
+
+-- パッケージマネージャ (mason) をセットアップ
 -- none, single, double, rounded, solid, shadow
 require("mason").setup({ ui = { border = "single"} })
 
+-- mason を介して language server を自動インストール
+ensure_installed = {"lua_ls", "marksman", "rust_analyzer",
+                    "solargraph", "texlab",}
 require('mason-lspconfig').setup({
-    ensure_installed = {
-        "lua_ls",
-        "marksman",
-        "rust_analyzer",
-        "solargraph",
-        "texlab",
-    },
     automatic_installation = true,
+    ensure_installed = ensure_installed,
 })
 
-require('mason-lspconfig').setup_handlers({
-    function (server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup {}
-    end,
-    ["lua_ls"] = function()
-        require("lspconfig")["lua_ls"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        -- `vim`グローバル変数を認識させる
-                        globals = {'vim'},
-                    },
-                }
+-- language server のセットアップ
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- `vim`グローバル変数を認識させる
+                globals = {'vim'},
             },
-        })
-    end,
-    ["marksman"] = function()
-        require("lspconfig")["marksman"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-        })
-    end,
-    ["solargraph"] = function()
-        require("lspconfig")["solargraph"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-        })
-    end,
-    ["rust_analyzer"] = function()
-        require("rust-tools").setup({
-            server = {
-                on_attach = on_attach,
-                capabilities = capabilities,
-                settings = {
-                    ["rust-analyzer"] = {
-                        checkOnSave = {
-                            command = "clippy"
-                        },
-                    }
-                },
-            }
-        })
-    end,
-    ["texlab"] = function()
-        require("lspconfig")["texlab"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-        })
-    end,
+        }
+    },
 })
 
 -- flutter-tools のセットアップ
