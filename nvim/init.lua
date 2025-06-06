@@ -145,6 +145,14 @@ require("lazy").setup({
     "tpope/vim-commentary",
     -- 日付と時刻を挿入
     "AntonVanAssche/date-time-inserter.nvim",
+    -- 入力した括弧などの文字のペアを自動入力
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+        -- use opts = {} for passing setup options
+        -- this is equivalent to setup({}) function
+    },
     -- f, F, t, T での移動先候補をハイライト
     "unblevable/quick-scope",
     -- w, e, b での移動を効率化
@@ -376,6 +384,11 @@ require('date-time-inserter').setup {
     insert_time_map = '<leader>tt',
     insert_date_time_map = '<leader>dtt',
 }
+
+-- autopairs のセットアップ
+require('nvim-autopairs').setup({
+  disable_filetype = { "TelescopePrompt" , "vim" },
+})
 
 -- quick-scope のセットアップ
 -- quick-scope のハイライト起動キー
