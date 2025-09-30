@@ -118,6 +118,27 @@ vim.api.nvim_create_user_command(
 )
 map('n', 'zx', ':CenteringCursorToggle<CR>', {noremap = true})
 
+-- 編集中のファイルを保存して make コマンドを実行
+vim.api.nvim_create_user_command(
+    "Make",
+    function()
+        vim.cmd("w")
+        -- vim.cmd("!make")
+        local output = vim.fn.systemlist("make")
+        local res = vim.v.shell_error
+
+        if res == 0 then
+            vim.fn.setqflist({}, ' ', { title = 'Make', lines = output })
+            vim.notify("✅ Build succeeded", vim.log.levels.INFO, { title = "Make", timeout = 3000 })
+        else
+            vim.fn.setqflist({}, ' ', { title = 'Make', lines = output })
+            vim.notify("❌ Build failed. Check :copen", vim.log.levels.ERROR, { title = "Make", timeout = 5000 })
+        end
+    end,
+    {}
+)
+map('n', 'mk', ':Make<CR>', {noremap = true})
+
 ---------------------
 --Plugin
 ---------------------
@@ -590,6 +611,14 @@ cmp.setup.cmdline(':', {
 ---------------------
 -- keybindings
 local on_attach = function(client, bufnr)
+    -- lsp を使った自動補完の設定
+    -- まだ使いにくいので，一旦 nvim-cmp の使用を継続する
+    -- vim.lsp.completion.enable(true, client.id, bufnr, {
+    --     autotrigger = true,
+    --     convert = function (item)
+    --         return { abbr = item.label:gsub('%b()', '')}
+    --     end,
+    -- })
 end
 
 -- lsp 全体で使用する設定
