@@ -511,6 +511,16 @@ require("catppuccin").setup({
         light = "latte",
         dark = "mocha",
     },
+    color_overrides = {
+        latte = {
+            base = "#e9e0d4",    -- 柔らかいラテ色
+            mantle = "#e1d9cd",  -- baseより少し暗め
+            crust = "#d9d0c4",   -- さらに落ち着いた色
+            surface0 = "#ddd3c7",
+            surface1 = "#d3cabe",
+            surface2 = "#c8bfb4",
+        },
+    },
     integrations = {
         cmp = true,
         gitsigns = true,
