@@ -42,6 +42,8 @@ vim.opt.list = true
 vim.opt.listchars = {tab='>-',trail='*'}
 -- ヤンクでクリップボードにコピー
 vim.opt.clipboard:append{'unnamedplus'}
+-- lsp を使って型情報を表示
+vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 
 -- インサートモード入出の際に IME のオンオフ
 if vim.fn.has("unix") == 1 then
@@ -89,6 +91,7 @@ map('n', 'tt', ':ToggleTerm<CR>', { silent = true })
 
 -- lsp 定義ジャンプ
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
+map('n', 'gb', '<C-o>', {})
 
 -- ダークテーマとライトテーマを簡単に切り替える
 vim.api.nvim_create_user_command(
@@ -96,8 +99,10 @@ vim.api.nvim_create_user_command(
     function()
         if vim.o.background == 'dark' then
             vim.opt.background = 'light'
+            vim.cmd('colorscheme catppuccin-latte')
         else
             vim.opt.background = 'dark'
+            vim.cmd('colorscheme catppuccin-mocha')
         end
     end,
     {}
@@ -507,10 +512,6 @@ require("noice").setup({
 --catppuccin(colorscheme) のセットアップ
 require("catppuccin").setup({
     flavor = "auto",
-    background = { -- :h background
-        light = "latte",
-        dark = "mocha",
-    },
     color_overrides = {
         latte = {
             base = "#e9e0d4",    -- 柔らかいラテ色
