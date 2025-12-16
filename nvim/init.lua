@@ -302,8 +302,8 @@ require("lazy").setup({
     -- nvim-lspconfig を自動的に設定
     "simrat39/rust-tools.nvim",
     -- lsp をインストール，セットアップ
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     -- Completion
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
@@ -587,8 +587,53 @@ cmp.setup({
     end,
   },
   window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+    completion = {
+        border = 'rounded',
+        col_offset = -3,
+        scrollbar = true,
+        side_padding = 1,
+        winhighlight = 'Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None',
+        winblend = 30,
+    },
+    documentation = {
+        border = 'rounded',
+        col_offset = 0,
+        max_height = 20,
+        max_width = 60,
+        winblend = 30,
+        winhighlight = 'Normal:CmpDoc,FloatBorder:CmpDocBorder',
+    },
+  },
+  formatting = {
+    fields = { 'abbr', 'kind', 'menu' },
+    format = function(entry, vim_item)
+      -- 補完候補の長さを制限してドキュメント用のスペースを確保
+      local MAX_ABBR_WIDTH = 30
+
+      if vim.fn.strwidth(vim_item.abbr) > MAX_ABBR_WIDTH then
+        vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, MAX_ABBR_WIDTH) .. '…'
+      end
+
+      -- ソース名を短く表示
+      local menu_icon = {
+        nvim_lsp = '[LSP]',
+        luasnip = '[Snip]',
+        buffer = '[Buf]',
+        path = '[Path]',
+      }
+      vim_item.menu = menu_icon[entry.source.name]
+
+      return vim_item
+    end,
+  },
+  view = {
+      entries = {
+          name = "custom",
+          selection_order = "near_cursor",
+          follow_cursor = true,
+      },
   },
   mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
