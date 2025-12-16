@@ -62,6 +62,12 @@ setopt hist_ignore_dups
 setopt EXTENDED_HISTORY
 
 ############
+# keybind
+############
+# 明示的に emacs モードにする
+bindkey -e
+
+############
 # env
 ############
 export PATH="$HOME/.local/bin:$PATH"
