@@ -35,8 +35,14 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 -- ターミナル内で true color を表示
 vim.opt.termguicolors = true
--- 行番号を表示"
+-- 行番号を表示
 vim.opt.number = true
+-- 相対行番号を表示
+vim.opt.relativenumber = true
+-- 行番号幅を4桁に固定
+vim.opt.numberwidth = 4
+-- 行番号，相対行番号を同時に表示
+vim.opt.statuscolumn = "%s %{v:relnum} %{v:lnum}"
 -- タブ文字と行末のスペースを表示
 vim.opt.list = true
 vim.opt.listchars = {tab='>-',trail='*'}
@@ -113,7 +119,7 @@ map('n', 'zbc', ':SwitchBackgroundColor<CR>', {noremap = true})
 vim.api.nvim_create_user_command(
     'CenteringCursorToggle',
     function()
-        if vim.opt.scrolloff == 999 then
+        if vim.o.scrolloff == 999 then
             vim.opt.scrolloff = 0
         else
             vim.opt.scrolloff = 999
